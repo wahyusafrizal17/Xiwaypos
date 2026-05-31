@@ -1,0 +1,45 @@
+<?php
+
+namespace App\Models;
+
+use App\Models\Concerns\BelongsToTenant;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class TransactionDetail extends Model
+{
+    use BelongsToTenant;
+
+    protected $fillable = [
+        'tenant_id',
+        'transaction_id',
+        'product_id',
+        'suhu',
+        'addons',
+        'qty',
+        'harga',
+        'subtotal',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'addons' => 'array',
+            'qty' => 'integer',
+            'harga' => 'integer',
+            'subtotal' => 'integer',
+        ];
+    }
+
+    /** @return BelongsTo<Transaction, $this> */
+    public function transaction(): BelongsTo
+    {
+        return $this->belongsTo(Transaction::class);
+    }
+
+    /** @return BelongsTo<Product, $this> */
+    public function product(): BelongsTo
+    {
+        return $this->belongsTo(Product::class);
+    }
+}
