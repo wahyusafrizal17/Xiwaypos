@@ -22,15 +22,24 @@ body.marketing-page{
 }
 ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--off)}::-webkit-scrollbar-thumb{background:var(--red);border-radius:3px}
 
-nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px 60px;background:rgba(255,255,255,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--gray)}
-.nav-logo{display:flex;align-items:center;gap:5px;text-decoration:none}
-.nav-logo img{height:30px;width:auto;display:block}
-.nav-logo span{font-family:var(--font-sans);font-size:25px;font-weight:700;color:var(--text);letter-spacing:var(--tracking-tight)}
+.site-nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;padding:18px 60px;padding-top:max(18px,env(safe-area-inset-top));background:rgba(255,255,255,0.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--gray)}
+.site-nav .nav-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-shrink:0}
+.site-nav .nav-menu{display:flex;align-items:center;justify-content:space-between;flex:1;min-width:0;margin-left:40px}
+.nav-logo{display:flex;align-items:center;gap:5px;text-decoration:none;min-width:0}
+.nav-logo img{height:30px;width:auto;display:block;flex-shrink:0}
+.nav-logo span{font-family:var(--font-sans);font-size:25px;font-weight:700;color:var(--text);letter-spacing:var(--tracking-tight);white-space:nowrap}
 .nav-logo span em{color:var(--red);font-style:normal}
-.nav-links{display:flex;gap:32px;list-style:none}
+.nav-toggle{display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:44px;height:44px;padding:0;border-radius:10px;border:1px solid var(--gray);background:var(--white);cursor:pointer;flex-shrink:0;transition:border-color .2s,background .2s}
+.nav-toggle span{display:block;width:18px;height:2px;background:var(--text);border-radius:2px;transition:transform .25s ease,opacity .2s ease}
+.site-nav.nav-open .nav-toggle{border-color:var(--red);background:var(--red-light)}
+.site-nav.nav-open .nav-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.site-nav.nav-open .nav-toggle span:nth-child(2){opacity:0}
+.site-nav.nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.nav-links{display:flex;gap:32px;list-style:none;align-items:center}
 .nav-links a{color:var(--text3);text-decoration:none;font-size:14px;font-weight:500;letter-spacing:0;transition:color .2s}
 .nav-links a:hover{color:var(--text)}
-.nav-cta{display:flex;gap:10px;align-items:center}
+.nav-cta{display:flex;gap:10px;align-items:center;flex-shrink:0}
+body.nav-menu-open{overflow:hidden}
 .btn-ghost{padding:9px 20px;border-radius:8px;border:1px solid var(--gray);color:var(--text);background:transparent;font-family:var(--font-sans);font-size:14px;font-weight:500;letter-spacing:0;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block}
 .btn-ghost:hover{border-color:var(--red);color:var(--red)}
 .btn-red{padding:9px 20px;border-radius:8px;background:var(--red);border:none;color:#fff;font-family:var(--font-sans);font-size:14px;font-weight:600;letter-spacing:0;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block}
@@ -85,7 +94,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .logo-brand{font-family:var(--font-sans);font-size:14px;font-weight:600;color:var(--gray2);white-space:nowrap;transition:color .2s;letter-spacing:0}
 
 .section-label{display:inline-block;font-size:11px;font-weight:600;letter-spacing:var(--tracking-wide);text-transform:uppercase;color:var(--red);margin-bottom:12px}
-#fitur,#cara-kerja,#harga,#faq,#hubungi-kami{scroll-margin-top:88px}
+#fitur,#cara-kerja,#harga,#faq,#hubungi-kami{scroll-margin-top:96px}
 .section-title{font-family:var(--font-sans);font-size:clamp(26px,3.2vw,40px);font-weight:700;letter-spacing:var(--tracking-tight);line-height:1.2;color:var(--text)}
 .slider-btn{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--gray);background:transparent;color:var(--text);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
 .slider-btn:hover{border-color:var(--red);background:var(--red-light);color:var(--red)}
@@ -228,31 +237,71 @@ footer.marketing-footer{background:#161616;color:rgba(255,255,255,0.82);padding:
 .marketing-reveal.is-visible{opacity:1;transform:translateY(0)}
 
 @media(max-width:900px){
-  nav{padding:14px 20px}.nav-links{display:none}
-  .hero-full .hero-slide-inner{padding:110px 20px 100px}
-  .hero-full .hero-carousel-nav{padding:0 20px;bottom:24px}
-  .hero-stats{justify-content:flex-start}
-  .hero-btns{justify-content:flex-start}
-  .hero-nav-arrow{width:42px;height:42px;font-size:16px}
-  .how-section,.features,.testi-section,.pricing,.support-section,.faq,.cta-section{padding:70px 20px}
-  .support-section{padding:70px 20px}
-  .support-card{grid-template-columns:1fr;text-align:left}
-  .support-visual{min-height:280px;padding-top:16px}
-  .support-visual img{max-height:300px;margin:0 auto}
-  .support-content{padding:32px 28px 36px}
-  .support-content p{max-width:none}
-  .support-actions{align-items:flex-start}
-  .how-inner{grid-template-columns:1fr}
+  #fitur,#cara-kerja,#harga,#faq,#hubungi-kami{scroll-margin-top:80px}
+  .site-nav{flex-wrap:wrap;align-items:stretch;padding:12px 16px;padding-top:max(12px,env(safe-area-inset-top))}
+  .site-nav .nav-bar{width:100%}
+  .site-nav .nav-menu{display:none;flex-direction:column;align-items:stretch;width:100%;margin:0;padding:16px 0 8px;border-top:1px solid var(--gray);gap:0}
+  .site-nav .nav-menu.is-open{display:flex}
+  .nav-toggle{display:flex}
+  .nav-links{flex-direction:column;align-items:stretch;gap:0;width:100%}
+  .nav-links a{display:block;padding:14px 0;font-size:15px;color:var(--text2);border-bottom:1px solid var(--off2)}
+  .nav-links li:last-child a{border-bottom:none}
+  .nav-cta{flex-direction:column;width:100%;gap:10px;margin-top:16px}
+  .nav-cta .btn-ghost,.nav-cta .btn-red{width:100%;text-align:center;padding:12px 18px;font-size:15px}
+  .hero-full .hero-carousel,.hero-full .hero-carousel-slide{min-height:100svh;min-height:100dvh}
+  .hero-slide-bg{background-position:center center}
+  .hero-slide-overlay{background:linear-gradient(180deg,rgba(8,8,8,0.35) 0%,rgba(8,8,8,0.88) 55%,rgba(8,8,8,0.95) 100%)}
+  .hero-full .hero-slide-inner{padding:96px 20px 128px;align-items:flex-end}
+  .hero-content{max-width:none;width:100%}
+  .hero h1{font-size:clamp(28px,8vw,40px);margin-bottom:14px}
+  .hero-desc{font-size:15px;margin-bottom:24px;line-height:1.65}
+  .hero-badge{font-size:11px;margin-bottom:18px;padding:5px 12px}
+  .hero-btns{flex-direction:column;width:100%;gap:10px}
+  .hero-btns .btn-red-lg,.hero-btns .btn-outline-lg{width:100%;text-align:center;padding:14px 20px;font-size:15px}
+  .hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px 8px;margin-top:28px;width:100%}
+  .hero-stat-sep{display:none}
+  .hero-stat-num{font-size:20px}
+  .hero-stat-label{font-size:11px}
+  .hero-full .hero-carousel-nav{padding:0 16px;bottom:max(20px,env(safe-area-inset-bottom));align-items:flex-end}
+  .hero-nav-arrow{width:40px;height:40px;font-size:15px}
+  .hero-carousel-dots{position:static;transform:none;margin-bottom:8px}
+  .how-section,.features,.testi-section,.pricing,.support-section,.faq,.cta-section{padding:64px 20px}
+  .how-inner{grid-template-columns:1fr;gap:32px}
   .how-img-wrap{display:none}
+  .how-content h2{font-size:clamp(24px,6vw,32px)}
+  .how-demo-desc{font-size:15px}
+  .how-content .btn-red-lg{width:100%;text-align:center}
+  .features-head{margin-bottom:40px}
   .features-grid{grid-template-columns:1fr;gap:16px}
   .feat-card{padding:24px}
   .pricing-grid{grid-template-columns:1fr}
-  .testi-card{flex:0 0 calc(85% - 10px)}
-  .logo-strip{padding:20px}
-  footer.marketing-footer{padding:48px 20px 28px}
-  .footer-grid{grid-template-columns:1fr 1fr;gap:32px 24px}
-  .footer-col-brand{grid-column:1/-1}
+  .price-card{padding:28px 24px}
+  .testi-card{flex:0 0 calc(88% - 8px)}
+  .testi-head{margin-bottom:36px}
+  .logo-strip{flex-direction:column;align-items:flex-start;gap:12px;padding:18px 20px}
+  .support-card{grid-template-columns:1fr}
+  .support-visual{min-height:240px;padding-top:12px}
+  .support-visual img{max-height:260px;margin:0 auto}
+  .support-content{padding:28px 24px 32px}
+  .support-content h2{font-size:clamp(26px,6vw,34px)}
+  .support-content p{max-width:none;font-size:15px}
+  .support-wa-btn{width:100%;justify-content:center}
+  .faq-question{font-size:14px;gap:12px}
+  .cta-section{padding:72px 20px}
+  .cta-section .btn-red-lg{width:100%;text-align:center}
+  footer.marketing-footer{padding:48px 20px 28px;padding-bottom:max(28px,env(safe-area-inset-bottom))}
+  .footer-grid{grid-template-columns:1fr;gap:28px}
+  .footer-col-brand{grid-column:auto}
   .footer-bottom{flex-direction:column;align-items:flex-start}
-  .footer-fab{right:16px;bottom:16px;padding:12px 16px;font-size:13px}
+  .footer-fab{right:16px;bottom:max(16px,env(safe-area-inset-bottom));width:52px;height:52px;padding:0;border-radius:999px;justify-content:center;font-size:0;gap:0}
+  .footer-fab svg{width:22px;height:22px}
+}
+@media(max-width:480px){
+  .nav-logo span{font-size:22px}
+  .nav-logo img{height:26px}
+  .hero-stats{grid-template-columns:1fr 1fr;gap:16px 12px}
+  .hero-stats>div:last-child{grid-column:1/-1}
+  .hero-full .hero-slide-inner{padding-bottom:140px}
+  .footer-legal{flex-direction:column;align-items:flex-start;gap:10px}
 }
 </style>

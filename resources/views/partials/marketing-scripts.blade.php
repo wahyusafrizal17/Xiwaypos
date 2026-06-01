@@ -1,4 +1,36 @@
 <script>
+(function initMobileNav() {
+    const siteNav = document.getElementById('siteNav');
+    const navToggle = document.getElementById('navToggle');
+    const navMenu = document.getElementById('navMenu');
+
+    if (! siteNav || ! navToggle || ! navMenu) {
+        return;
+    }
+
+    function setNavOpen(open) {
+        navMenu.classList.toggle('is-open', open);
+        siteNav.classList.toggle('nav-open', open);
+        document.body.classList.toggle('nav-menu-open', open);
+        navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        navToggle.setAttribute('aria-label', open ? 'Tutup menu' : 'Buka menu');
+    }
+
+    navToggle.addEventListener('click', () => {
+        setNavOpen(! navMenu.classList.contains('is-open'));
+    });
+
+    navMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => setNavOpen(false));
+    });
+
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 900) {
+            setNavOpen(false);
+        }
+    });
+})();
+
 document.querySelectorAll('.faq-item').forEach(item => {
     item.querySelector('.faq-question').addEventListener('click', () => {
         const open = item.classList.contains('open');

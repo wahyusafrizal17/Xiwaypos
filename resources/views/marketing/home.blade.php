@@ -66,21 +66,37 @@
     ];
 @endphp
 
-<nav>
-    <a href="{{ route('marketing.home') }}" class="nav-logo">
-        <x-xiway-logo />
-        <span>xiway<em>pos</em></span>
-    </a>
-    <ul class="nav-links">
-        <li><a href="#fitur">Fitur</a></li>
-        <li><a href="#cara-kerja">Demo</a></li>
-        <li><a href="#harga">Harga</a></li>
-        <li><a href="#faq">FAQ</a></li>
-        <li><a href="#hubungi-kami">Hubungi Kami</a></li>
-    </ul>
-    <div class="nav-cta">
-        <a href="{{ $loginUrl }}" class="btn-ghost">Masuk</a>
-        <a href="{{ $registerUrl }}" class="btn-red">Coba Gratis →</a>
+<nav class="site-nav" id="siteNav">
+    <div class="nav-bar">
+        <a href="{{ route('marketing.home') }}" class="nav-logo">
+            <x-xiway-logo />
+            <span>xiway<em>pos</em></span>
+        </a>
+        <button
+            type="button"
+            class="nav-toggle"
+            id="navToggle"
+            aria-label="Buka menu"
+            aria-expanded="false"
+            aria-controls="navMenu"
+        >
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+    <div class="nav-menu" id="navMenu">
+        <ul class="nav-links">
+            <li><a href="#fitur">Fitur</a></li>
+            <li><a href="#cara-kerja">Demo</a></li>
+            <li><a href="#harga">Harga</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#hubungi-kami">Hubungi Kami</a></li>
+        </ul>
+        <div class="nav-cta">
+            <a href="{{ $loginUrl }}" class="btn-ghost">Masuk</a>
+            <a href="{{ $registerUrl }}" class="btn-red">Coba Gratis →</a>
+        </div>
     </div>
 </nav>
 
