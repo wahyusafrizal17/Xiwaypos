@@ -7,6 +7,7 @@ use App\Http\Middleware\EnsurePlatformAdmin;
 use App\Http\Middleware\EnsureStaff;
 use App\Http\Middleware\EnsureSubscriptionActive;
 use App\Http\Middleware\EnsureTenantMember;
+use App\Http\Controllers\Marketing\SeoController;
 use App\Http\Middleware\ResolveTenant;
 use App\Http\Middleware\TrackSiteVisit;
 use Illuminate\Foundation\Application;
@@ -19,6 +20,9 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
         then: function (): void {
+            Route::get('/robots.txt', [SeoController::class, 'robots'])->name('seo.robots');
+            Route::get('/sitemap.xml', [SeoController::class, 'sitemap'])->name('seo.sitemap');
+
             $marketingDomain = config('xiway.marketing_domain');
             $appDomain = config('xiway.app_domain');
             $useDomainSplit = $marketingDomain && $appDomain && $marketingDomain !== $appDomain;

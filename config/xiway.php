@@ -20,6 +20,38 @@ return [
 
     'track_site_visits' => env('XIWAY_TRACK_SITE_VISITS', true),
 
+    'seo' => [
+        'site_name' => env('XIWAY_SEO_SITE_NAME', 'Xiway POS'),
+        'site_url' => env('XIWAY_SEO_SITE_URL'),
+        'default_title' => env('XIWAY_SEO_TITLE', 'Xiway POS — Aplikasi POS Kasir untuk Cafe, Restoran & UMKM'),
+        'default_description' => env(
+            'XIWAY_SEO_DESCRIPTION',
+            'Xiway POS adalah aplikasi POS kasir online untuk cafe, coffee shop, restoran, dan UMKM F&B. Kelola menu, transaksi QRIS/tunai, laporan penjualan. Coba gratis 14 hari.'
+        ),
+        'og_image' => env('XIWAY_SEO_OG_IMAGE', 'images/marketing/hero-slide-pos.png'),
+        'google_site_verification' => env('GOOGLE_SITE_VERIFICATION'),
+        'keywords' => [
+            'aplikasi pos kasir',
+            'sistem kasir online',
+            'aplikasi kasir cafe',
+            'pos restoran',
+            'software kasir umkm',
+            'aplikasi kasir murah',
+            'program kasir toko',
+            'xiway pos',
+        ],
+        'disallow_paths' => [
+            '/platform',
+            '/admin',
+            '/kasir',
+            '/dashboard',
+            '/billing',
+            '/onboarding',
+            '/tenant',
+            '/profile',
+        ],
+    ],
+
     'app_url' => env('APP_URL', 'http://localhost'),
 
     'app_login_url' => env('APP_LOGIN_URL'),

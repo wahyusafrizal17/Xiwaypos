@@ -1,6 +1,11 @@
 @extends('layouts.marketing')
 
-@section('title', 'Xiway POS — Sistem Kasir untuk Cafe & Restoran')
+@section('title', 'Xiway POS — Aplikasi POS Kasir untuk Cafe, Restoran & UMKM')
+@section('meta_description', 'Aplikasi POS kasir online untuk cafe, coffee shop, dan restoran. Kelola menu, transaksi QRIS/tunai, laporan penjualan & multi pengguna. Coba gratis 14 hari tanpa kartu kredit.')
+@section('meta_keywords', 'aplikasi pos kasir, sistem kasir online, aplikasi kasir cafe, pos restoran, software kasir umkm, program kasir toko, xiway pos')
+@section('canonical', \App\Support\MarketingSeo::canonical('/'))
+@section('og_title', 'Xiway POS — Aplikasi POS Kasir Terbaik untuk UMKM F&B')
+@section('og_description', 'Sistem kasir praktis untuk cafe & restoran. Setup cepat, langsung terima pesanan dan pantau omzet harian.')
 
 @section('body')
 @php
@@ -435,4 +440,52 @@
 </footer>
 
 @include('partials.marketing-scripts')
+
+@push('structured_data')
+@php
+    $structuredData = [
+        '@context' => 'https://schema.org',
+        '@graph' => [
+            [
+                '@type' => 'Organization',
+                'name' => 'Xiway POS',
+                'url' => \App\Support\MarketingSeo::siteUrl(),
+                'logo' => \App\Support\MarketingSeo::ogImage(),
+            ],
+            [
+                '@type' => 'WebSite',
+                'name' => 'Xiway POS',
+                'url' => \App\Support\MarketingSeo::siteUrl(),
+                'description' => 'Aplikasi POS kasir online untuk cafe, restoran, dan UMKM makan & minum di Indonesia.',
+                'inLanguage' => 'id-ID',
+            ],
+            [
+                '@type' => 'SoftwareApplication',
+                'name' => 'Xiway POS',
+                'applicationCategory' => 'BusinessApplication',
+                'operatingSystem' => 'Web, Android, iOS',
+                'description' => 'Sistem kasir untuk cafe, coffee shop, dan restoran dengan manajemen menu, transaksi, dan laporan.',
+                'offers' => [
+                    '@type' => 'Offer',
+                    'price' => '129000',
+                    'priceCurrency' => 'IDR',
+                ],
+                'url' => \App\Support\MarketingSeo::siteUrl(),
+            ],
+            [
+                '@type' => 'FAQPage',
+                'mainEntity' => collect($faqs)->map(fn (array $faq) => [
+                    '@type' => 'Question',
+                    'name' => $faq['q'],
+                    'acceptedAnswer' => [
+                        '@type' => 'Answer',
+                        'text' => $faq['a'],
+                    ],
+                ])->values()->all(),
+            ],
+        ],
+    ];
+@endphp
+<script type="application/ld+json">{!! json_encode($structuredData, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}</script>
+@endpush
 @endsection

@@ -1,6 +1,9 @@
 @extends('layouts.marketing')
 
 @section('title', 'Syarat & Ketentuan — Xiway POS')
+@section('meta_description', 'Syarat dan ketentuan penggunaan layanan Xiway POS untuk bisnis cafe, restoran, dan UMKM.')
+@section('canonical', \App\Support\MarketingSeo::canonical('/terms'))
+@section('meta_robots', 'index, follow')
 
 @section('body')
 <div class="min-h-screen bg-slate-50 py-16">

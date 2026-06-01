@@ -1,6 +1,9 @@
 @extends('layouts.marketing')
 
 @section('title', 'Kebijakan Privasi — Xiway POS')
+@section('meta_description', 'Kebijakan privasi Xiway POS: cara kami mengumpulkan, menggunakan, dan melindungi data bisnis serta transaksi Anda.')
+@section('canonical', \App\Support\MarketingSeo::canonical('/privacy'))
+@section('meta_robots', 'index, follow')
 
 @section('body')
 <div class="min-h-screen bg-slate-50 py-16">
