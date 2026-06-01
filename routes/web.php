@@ -11,6 +11,7 @@ use App\Http\Controllers\BillingController;
 use App\Http\Controllers\CashierController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OnboardingController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Platform\PlatformDashboardController;
 use App\Http\Controllers\Platform\SubscriptionPaymentRequestController;
 use App\Http\Controllers\Platform\TenantAdminController;
