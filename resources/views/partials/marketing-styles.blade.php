@@ -238,16 +238,73 @@ footer.marketing-footer{background:#161616;color:rgba(255,255,255,0.82);padding:
 
 @media(max-width:900px){
   #fitur,#cara-kerja,#harga,#faq,#hubungi-kami{scroll-margin-top:80px}
-  .site-nav{flex-wrap:wrap;align-items:stretch;padding:12px 16px;padding-top:max(12px,env(safe-area-inset-top))}
-  .site-nav .nav-bar{width:100%}
-  .site-nav .nav-menu{display:none;flex-direction:column;align-items:stretch;width:100%;margin:0;padding:16px 0 8px;border-top:1px solid var(--gray);gap:0}
+  .site-nav{
+    flex-direction:column;
+    flex-wrap:nowrap;
+    align-items:stretch;
+    padding:12px 16px 0;
+    padding-top:max(12px,env(safe-area-inset-top));
+  }
+  .site-nav .nav-bar{
+    width:100%;
+    flex:0 0 auto;
+    margin:0;
+  }
+  .site-nav .nav-menu{
+    display:none;
+    flex:none;
+    flex-basis:auto;
+    flex-grow:0;
+    flex-shrink:0;
+    flex-direction:column;
+    align-items:stretch;
+    justify-content:flex-start;
+    width:100%;
+    max-width:100%;
+    min-width:0;
+    margin:0;
+    padding:8px 0 16px;
+    border-top:1px solid var(--gray);
+    gap:0;
+    overflow:visible;
+  }
   .site-nav .nav-menu.is-open{display:flex}
   .nav-toggle{display:flex}
-  .nav-links{flex-direction:column;align-items:stretch;gap:0;width:100%}
-  .nav-links a{display:block;padding:14px 0;font-size:15px;color:var(--text2);border-bottom:1px solid var(--off2)}
+  .nav-links{
+    flex-direction:column;
+    align-items:stretch;
+    gap:0;
+    width:100%;
+    max-width:100%;
+  }
+  .nav-links li{width:100%;list-style:none}
+  .nav-links a{
+    display:block;
+    width:100%;
+    padding:14px 4px;
+    font-size:15px;
+    color:var(--text2);
+    border-bottom:1px solid var(--off2);
+    white-space:normal;
+  }
   .nav-links li:last-child a{border-bottom:none}
-  .nav-cta{flex-direction:column;width:100%;gap:10px;margin-top:16px}
-  .nav-cta .btn-ghost,.nav-cta .btn-red{width:100%;text-align:center;padding:12px 18px;font-size:15px}
+  .nav-cta{
+    flex:none;
+    flex-direction:column;
+    align-items:stretch;
+    width:100%;
+    max-width:100%;
+    gap:10px;
+    margin-top:16px;
+  }
+  .nav-cta .btn-ghost,.nav-cta .btn-red{
+    width:100%;
+    max-width:100%;
+    text-align:center;
+    padding:12px 18px;
+    font-size:15px;
+    box-sizing:border-box;
+  }
   .hero-full .hero-carousel,.hero-full .hero-carousel-slide{min-height:100svh;min-height:100dvh}
   .hero-slide-bg{background-position:center center}
   .hero-slide-overlay{background:linear-gradient(180deg,rgba(8,8,8,0.35) 0%,rgba(8,8,8,0.88) 55%,rgba(8,8,8,0.95) 100%)}
