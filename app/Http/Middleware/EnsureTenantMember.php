@@ -22,7 +22,13 @@ class EnsureTenantMember
         }
 
         if ($user->isPlatformAdmin()) {
-            return $next($request);
+            $routeName = (string) ($request->route()?->getName() ?? '');
+
+            if (str_starts_with($routeName, 'platform.') || str_starts_with($routeName, 'profile.')) {
+                return $next($request);
+            }
+
+            return redirect()->route('platform.tenants.index');
         }
 
         if (! TenantContext::hasTenant()) {

@@ -2,6 +2,7 @@
     $user = auth()->user();
     $isAdmin = $user->isAdmin();
     $isPlatformAdmin = $user->isPlatformAdmin();
+    $isOutletAdmin = $isAdmin && ! $isPlatformAdmin;
     $canFeature = $planHasFeature ?? fn (): bool => true;
 @endphp
 
@@ -14,7 +15,7 @@
     </div>
 
     <div class="min-h-0 flex-1 overflow-y-auto">
-        @if ($isAdmin)
+        @if ($isOutletAdmin)
             <p class="vx-sidebar-section">Ringkasan</p>
             <nav class="vx-sidebar-nav">
                 <a href="{{ route('dashboard') }}" class="vx-sidebar-link {{ request()->routeIs('dashboard') ? 'is-active' : '' }}">
@@ -24,37 +25,39 @@
             </nav>
         @endif
 
-        <p class="vx-sidebar-section">Operasional</p>
-        <nav class="vx-sidebar-nav">
-            @if ($canFeature('cashier'))
-                <a href="{{ route('cashier.index') }}" class="vx-sidebar-link {{ request()->routeIs('cashier.*') ? 'is-active' : '' }}">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.5l1.05 4.2M6 16.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm12 0a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm-12-3h12.36a1.5 1.5 0 0 0 1.47-1.2L21.75 6H4.8"/></svg>
-                    Kasir
-                </a>
-            @endif
-            @if ($isAdmin)
-                @if ($canFeature('products'))
-                    <a href="{{ route('admin.products.index') }}" class="vx-sidebar-link {{ request()->routeIs('admin.products.*') ? 'is-active' : '' }}">
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m20.25 7.5-8.25 4.5-8.25-4.5M12 12v9.75M20.25 7.5v9l-8.25 4.5L3.75 16.5v-9L12 3l8.25 4.5Z"/></svg>
-                        Produk
+        @if (! $isPlatformAdmin)
+            <p class="vx-sidebar-section">Operasional</p>
+            <nav class="vx-sidebar-nav">
+                @if ($canFeature('cashier'))
+                    <a href="{{ route('cashier.index') }}" class="vx-sidebar-link {{ request()->routeIs('cashier.*') ? 'is-active' : '' }}">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.5l1.05 4.2M6 16.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm12 0a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm-12-3h12.36a1.5 1.5 0 0 0 1.47-1.2L21.75 6H4.8"/></svg>
+                        Kasir
                     </a>
                 @endif
-                @if ($canFeature('categories'))
-                    <a href="{{ route('admin.categories.index') }}" class="vx-sidebar-link {{ request()->routeIs('admin.categories.*') ? 'is-active' : '' }}">
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7.5A1.5 1.5 0 0 1 4.5 6h3.879c.265 0 .52.105.707.293L10.5 7.5h9A1.5 1.5 0 0 1 21 9v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18V7.5Z"/></svg>
-                        Kategori
-                    </a>
+                @if ($isOutletAdmin)
+                    @if ($canFeature('products'))
+                        <a href="{{ route('admin.products.index') }}" class="vx-sidebar-link {{ request()->routeIs('admin.products.*') ? 'is-active' : '' }}">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m20.25 7.5-8.25 4.5-8.25-4.5M12 12v9.75M20.25 7.5v9l-8.25 4.5L3.75 16.5v-9L12 3l8.25 4.5Z"/></svg>
+                            Produk
+                        </a>
+                    @endif
+                    @if ($canFeature('categories'))
+                        <a href="{{ route('admin.categories.index') }}" class="vx-sidebar-link {{ request()->routeIs('admin.categories.*') ? 'is-active' : '' }}">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7.5A1.5 1.5 0 0 1 4.5 6h3.879c.265 0 .52.105.707.293L10.5 7.5h9A1.5 1.5 0 0 1 21 9v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18V7.5Z"/></svg>
+                            Kategori
+                        </a>
+                    @endif
+                    @if ($canFeature('order_addons'))
+                        <a href="{{ route('admin.order-addons.index') }}" class="vx-sidebar-link {{ request()->routeIs('admin.order-addons.*') ? 'is-active' : '' }}">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15M6 12h.008v.008H6V12Zm3 0h.008v.008H9V12Zm3 0h.008v.008H12V12Zm3 0h.008v.008H15V12Z"/></svg>
+                            Opsi Ekstra
+                        </a>
+                    @endif
                 @endif
-                @if ($canFeature('order_addons'))
-                    <a href="{{ route('admin.order-addons.index') }}" class="vx-sidebar-link {{ request()->routeIs('admin.order-addons.*') ? 'is-active' : '' }}">
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15M6 12h.008v.008H6V12Zm3 0h.008v.008H9V12Zm3 0h.008v.008H12V12Zm3 0h.008v.008H15V12Z"/></svg>
-                        Opsi Ekstra
-                    </a>
-                @endif
-            @endif
-        </nav>
+            </nav>
+        @endif
 
-        @if ($isAdmin && ($canFeature('reports_basic') || $canFeature('expenses') || $canFeature('assets')))
+        @if ($isOutletAdmin && ($canFeature('reports_basic') || $canFeature('expenses') || $canFeature('assets')))
             <p class="vx-sidebar-section">Keuangan</p>
             <nav class="vx-sidebar-nav">
                 @if ($canFeature('reports_basic'))
@@ -82,7 +85,7 @@
             </nav>
         @endif
 
-        @if ($isAdmin)
+        @if ($isOutletAdmin)
             <p class="vx-sidebar-section">Manajemen</p>
             <nav class="vx-sidebar-nav">
                 <a href="{{ route('admin.users.index') }}" class="vx-sidebar-link {{ request()->routeIs('admin.users.*') ? 'is-active' : '' }}">
@@ -108,7 +111,7 @@
 
         <p class="vx-sidebar-section">Akun</p>
         <nav class="vx-sidebar-nav">
-            @if ($isAdmin)
+            @if ($isOutletAdmin)
                 <a href="{{ route('billing.index') }}" class="vx-sidebar-link {{ request()->routeIs('billing.*') ? 'is-active' : '' }}">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3M3.75 6.75h16.5a1.5 1.5 0 0 1 1.5 1.5v9a1.5 1.5 0 0 1-1.5 1.5H3.75a1.5 1.5 0 0 1-1.5-1.5v-9a1.5 1.5 0 0 1 1.5-1.5Z"/></svg>
                     Langganan
