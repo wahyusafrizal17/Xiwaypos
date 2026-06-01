@@ -11,6 +11,7 @@ use App\Http\Controllers\BillingController;
 use App\Http\Controllers\CashierController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OnboardingController;
+use App\Http\Controllers\Platform\PlatformDashboardController;
 use App\Http\Controllers\Platform\SubscriptionPaymentRequestController;
 use App\Http\Controllers\Platform\TenantAdminController;
 use App\Http\Controllers\RegistrationCredentialsController;
@@ -127,6 +128,7 @@ Route::middleware(['auth', 'verified', 'platform.admin'])
     ->prefix('platform')
     ->name('platform.')
     ->group(function () {
+        Route::get('/dashboard', [PlatformDashboardController::class, 'index'])->name('dashboard');
         Route::get('/tenants', [TenantAdminController::class, 'index'])->name('tenants.index');
         Route::get('/tenants/{tenant}', [TenantAdminController::class, 'show'])->name('tenants.show');
         Route::post('/tenants/{tenant}/activate', [TenantAdminController::class, 'activate'])->name('tenants.activate');

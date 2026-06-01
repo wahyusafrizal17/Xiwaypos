@@ -28,7 +28,7 @@ class EnsureTenantMember
                 return $next($request);
             }
 
-            return redirect()->route('platform.tenants.index');
+            return redirect()->route('platform.dashboard');
         }
 
         if (! TenantContext::hasTenant()) {

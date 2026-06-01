@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Platform;
 
 use App\Http\Controllers\Controller;
 use App\Models\Plan;
+use App\Models\Product;
 use App\Models\Subscription;
 use App\Models\Tenant;
+use App\Models\Transaction;
 use App\Services\SubscriptionActivator;
+use App\Support\StaffPasswords;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -40,7 +43,35 @@ class TenantAdminController extends Controller
 
         $plans = Plan::query()->where('is_active', true)->orderBy('sort_order')->get();
 
-        return view('platform.tenants.show', compact('tenant', 'plans'));
+        $tenantId = $tenant->id;
+
+        $productsCount = Product::query()
+            ->withoutGlobalScopes()
+            ->where('tenant_id', $tenantId)
+            ->count();
+
+        $paidTransactionsBase = Transaction::query()
+            ->withoutGlobalScopes()
+            ->where('tenant_id', $tenantId)
+            ->paid();
+
+        $totalRevenue = (int) (clone $paidTransactionsBase)->sum('total');
+        $monthlyRevenue = (int) (clone $paidTransactionsBase)
+            ->where('created_at', '>=', now()->startOfMonth())
+            ->sum('total');
+        $paidTransactionCount = (clone $paidTransactionsBase)->count();
+
+        $staffPasswords = StaffPasswords::all($tenant);
+
+        return view('platform.tenants.show', compact(
+            'tenant',
+            'plans',
+            'productsCount',
+            'totalRevenue',
+            'monthlyRevenue',
+            'paidTransactionCount',
+            'staffPasswords',
+        ));
     }
 
     public function activate(Request $request, Tenant $tenant): RedirectResponse

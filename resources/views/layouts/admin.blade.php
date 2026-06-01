@@ -54,7 +54,7 @@
                                 @hasSection('breadcrumbs')
                                     @yield('breadcrumbs')
                                 @else
-                                    <a href="{{ route('dashboard') }}">Beranda</a>
+                                    <a href="{{ auth()->user()->isPlatformAdmin() ? route('platform.dashboard') : route('dashboard') }}">Beranda</a>
                                     <span class="vx-sep">/</span>
                                     <span class="vx-current">@yield('title', 'Admin')</span>
                                 @endif
