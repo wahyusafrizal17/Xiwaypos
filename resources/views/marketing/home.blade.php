@@ -30,7 +30,7 @@
         ['q' => 'Apakah data bisnis saya aman?', 'a' => 'Ya. Setiap bisnis punya data terpisah. Data toko Anda tidak tercampur dengan bisnis lain.'],
     ];
 
-    $logoBrands = ['Kopi Kenangan', 'Fore Coffee', 'Kedai Kita', 'Warung Nusantara', 'Boba House', 'Restoran Bahari', 'Dapur Ibu', 'Cafe 88'];
+    $logoBrands = ['Kopi Kenangan', 'Kedai Kita', 'Warung Nusantara', 'Boba House', 'Restoran Bahari', 'Dapur Ibu', 'Cafe 88'];
 
     $marketingAsset = function (string $path): string {
         $url = asset($path);
