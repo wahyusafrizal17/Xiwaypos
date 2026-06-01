@@ -6,10 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Models\Subscription;
 use App\Models\SubscriptionPaymentRequest;
 use App\Models\Tenant;
+use App\Services\SiteVisitAnalytics;
 use Illuminate\View\View;
 
 class PlatformDashboardController extends Controller
 {
+    public function __construct(
+        protected SiteVisitAnalytics $siteVisitAnalytics
+    ) {}
+
     public function index(): View
     {
         $totalTenants = Tenant::query()->count();
@@ -39,6 +44,8 @@ class PlatformDashboardController extends Controller
             ->limit(5)
             ->get();
 
+        $trafficChart = $this->siteVisitAnalytics->chartData(7);
+
         return view('platform.dashboard', compact(
             'totalTenants',
             'trialingTenants',
@@ -46,6 +53,7 @@ class PlatformDashboardController extends Controller
             'pendingPayments',
             'recentTenants',
             'recentPaymentRequests',
+            'trafficChart',
         ));
     }
 }

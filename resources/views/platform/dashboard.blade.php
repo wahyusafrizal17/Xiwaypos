@@ -11,7 +11,7 @@
 @section('page_header')
     <div>
         <h1>Selamat datang, {{ auth()->user()->name }} 👋</h1>
-        <p>Ringkasan tenant, langganan, dan verifikasi pembayaran.</p>
+        <p>Ringkasan tenant, langganan, kunjungan website, dan verifikasi pembayaran.</p>
     </div>
 @endsection
 
@@ -58,6 +58,48 @@
         </div>
     </div>
 
+    <div class="vx-card vx-chart-card mt-6">
+        <div class="vx-card-head">
+            <div>
+                <h2>Kunjungan website</h2>
+                <p>
+                    7 hari terakhir ·
+                    {{ number_format($trafficChart['period_views'], 0, ',', '.') }} kunjungan ·
+                    {{ number_format($trafficChart['period_uniques'], 0, ',', '.') }} pengunjung unik
+                </p>
+            </div>
+            <div class="text-right text-sm">
+                <p class="font-semibold text-[var(--vx-text)]">Hari ini</p>
+                <p class="text-[var(--vx-text-soft)]">
+                    {{ number_format($trafficChart['today_views'], 0, ',', '.') }} kunjungan ·
+                    {{ number_format($trafficChart['today_uniques'], 0, ',', '.') }} unik
+                </p>
+            </div>
+        </div>
+        <div class="vx-card-pad pt-0">
+            @if ($trafficChart['has_data'])
+                <div class="vx-chart-wrap">
+                    <canvas id="platformTrafficChart" aria-label="Grafik kunjungan website 7 hari terakhir" role="img"></canvas>
+                </div>
+                <div class="vx-chart-legend">
+                    <span class="vx-chart-legend-item">
+                        <span class="vx-chart-legend-dot is-primary"></span>
+                        Kunjungan halaman
+                    </span>
+                    <span class="vx-chart-legend-item">
+                        <span class="vx-chart-legend-dot is-muted"></span>
+                        Pengunjung unik
+                    </span>
+                </div>
+            @else
+                <div class="vx-chart-empty">
+                    <p>Belum ada data kunjungan.</p>
+                    <span>Data terkumpul dari halaman landing, login, dan register.</span>
+                </div>
+            @endif
+        </div>
+    </div>
+
     <div class="mt-6 grid gap-6 lg:grid-cols-2">
         <div class="vx-card vx-card-pad">
             <div class="vx-card-head mb-4">
@@ -65,7 +107,7 @@
                     <h2>Tenant terbaru</h2>
                     <p>Daftar bisnis yang baru mendaftar</p>
                 </div>
-                <a href="{{ route('platform.tenants.index') }}" class="text-sm font-semibold text-indigo-600 hover:underline">Lihat semua</a>
+                <a href="{{ route('platform.tenants.index') }}" class="text-sm font-semibold text-[var(--vx-primary)] hover:underline">Lihat semua</a>
             </div>
             @if ($recentTenants->isEmpty())
                 <p class="text-sm text-slate-500">Belum ada tenant terdaftar.</p>
@@ -79,7 +121,7 @@
                             </div>
                             <div class="shrink-0 text-right">
                                 <span class="vx-badge is-neutral text-xs">{{ strtoupper($tenant->subscription?->status ?? '—') }}</span>
-                                <a href="{{ route('platform.tenants.show', $tenant) }}" class="mt-1 block text-xs font-semibold text-indigo-600 hover:underline">Detail</a>
+                                <a href="{{ route('platform.tenants.show', $tenant) }}" class="mt-1 block text-xs font-semibold text-[var(--vx-primary)] hover:underline">Detail</a>
                             </div>
                         </div>
                     @endforeach
@@ -93,7 +135,7 @@
                     <h2>Pembayaran perlu verifikasi</h2>
                     <p>Pengajuan langganan dari client</p>
                 </div>
-                <a href="{{ route('platform.payment-requests.index') }}" class="text-sm font-semibold text-indigo-600 hover:underline">Lihat semua</a>
+                <a href="{{ route('platform.payment-requests.index') }}" class="text-sm font-semibold text-[var(--vx-primary)] hover:underline">Lihat semua</a>
             </div>
             @if ($recentPaymentRequests->isEmpty())
                 <p class="text-sm text-slate-500">Tidak ada pengajuan menunggu verifikasi.</p>
@@ -118,3 +160,108 @@
         </div>
     </div>
 @endsection
+
+@if ($trafficChart['has_data'])
+    @push('scripts')
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" crossorigin="anonymous"></script>
+        <script>
+            (function () {
+                const canvas = document.getElementById('platformTrafficChart');
+                if (!canvas || typeof Chart === 'undefined') {
+                    return;
+                }
+
+                const labels = @json($trafficChart['labels']);
+                const pageViews = @json($trafficChart['page_views']);
+                const uniqueVisitors = @json($trafficChart['unique_visitors']);
+
+                const ctx = canvas.getContext('2d');
+                const gradient = ctx.createLinearGradient(0, 0, 0, 320);
+                gradient.addColorStop(0, 'rgba(224, 16, 16, 0.22)');
+                gradient.addColorStop(1, 'rgba(224, 16, 16, 0.02)');
+
+                new Chart(canvas, {
+                    type: 'bar',
+                    data: {
+                        labels,
+                        datasets: [
+                            {
+                                type: 'line',
+                                label: 'Kunjungan',
+                                data: pageViews,
+                                yAxisID: 'yViews',
+                                borderColor: '#E01010',
+                                backgroundColor: gradient,
+                                borderWidth: 2.5,
+                                pointBackgroundColor: '#fff',
+                                pointBorderColor: '#E01010',
+                                pointBorderWidth: 2,
+                                pointRadius: 4,
+                                pointHoverRadius: 6,
+                                tension: 0.35,
+                                fill: true,
+                                order: 1,
+                            },
+                            {
+                                type: 'bar',
+                                label: 'Pengunjung unik',
+                                data: uniqueVisitors,
+                                yAxisID: 'yUniques',
+                                backgroundColor: 'rgba(17, 17, 17, 0.12)',
+                                hoverBackgroundColor: 'rgba(17, 17, 17, 0.22)',
+                                borderRadius: 6,
+                                borderSkipped: false,
+                                maxBarThickness: 28,
+                                order: 2,
+                            },
+                        ],
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        interaction: {
+                            mode: 'index',
+                            intersect: false,
+                        },
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                backgroundColor: '#111111',
+                                titleColor: '#f8fafc',
+                                bodyColor: '#e2e8f0',
+                                padding: 12,
+                                cornerRadius: 10,
+                            },
+                        },
+                        scales: {
+                            x: {
+                                grid: { display: false },
+                                ticks: { color: '#64748b', font: { size: 11 } },
+                            },
+                            yViews: {
+                                type: 'linear',
+                                position: 'left',
+                                beginAtZero: true,
+                                grid: { color: 'rgba(148, 163, 184, 0.2)' },
+                                ticks: {
+                                    color: '#64748b',
+                                    precision: 0,
+                                },
+                            },
+                            yUniques: {
+                                type: 'linear',
+                                position: 'right',
+                                beginAtZero: true,
+                                grid: { drawOnChartArea: false },
+                                ticks: {
+                                    color: '#94a3b8',
+                                    precision: 0,
+                                },
+                            },
+                        },
+                    },
+                });
+            })();
+        </script>
+    @endpush
+@endif

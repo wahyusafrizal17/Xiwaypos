@@ -18,6 +18,8 @@ return [
 
     'platform_whatsapp' => env('XIWAY_SUPPORT_WHATSAPP', '6281234567890'),
 
+    'track_site_visits' => env('XIWAY_TRACK_SITE_VISITS', true),
+
     'app_url' => env('APP_URL', 'http://localhost'),
 
     'app_login_url' => env('APP_LOGIN_URL'),

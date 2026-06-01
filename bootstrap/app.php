@@ -8,6 +8,7 @@ use App\Http\Middleware\EnsureStaff;
 use App\Http\Middleware\EnsureSubscriptionActive;
 use App\Http\Middleware\EnsureTenantMember;
 use App\Http\Middleware\ResolveTenant;
+use App\Http\Middleware\TrackSiteVisit;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -23,7 +24,7 @@ return Application::configure(basePath: dirname(__DIR__))
             $useDomainSplit = $marketingDomain && $appDomain && $marketingDomain !== $appDomain;
 
             if ($useDomainSplit) {
-                Route::middleware('web')
+                Route::middleware(['web', TrackSiteVisit::class])
                     ->domain($marketingDomain)
                     ->name('marketing.')
                     ->group(base_path('routes/marketing.php'));
@@ -33,7 +34,7 @@ return Application::configure(basePath: dirname(__DIR__))
                     ->group(base_path('routes/web.php'));
             } else {
                 if (config('xiway.landing_on_root', true)) {
-                    Route::middleware('web')
+                    Route::middleware(['web', TrackSiteVisit::class])
                         ->name('marketing.')
                         ->group(base_path('routes/marketing.php'));
                 }
