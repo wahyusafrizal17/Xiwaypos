@@ -21,6 +21,10 @@ class EnsureTenantMember
             return redirect()->route('login');
         }
 
+        if ($user->isPlatformAdmin()) {
+            return $next($request);
+        }
+
         if (! TenantContext::hasTenant()) {
             if ($user->tenants()->exists()) {
                 return redirect()->route('tenant.select');

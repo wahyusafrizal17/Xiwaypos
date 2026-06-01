@@ -90,6 +90,10 @@ class User extends Authenticatable
 
     public function homeUrl(): string
     {
+        if ($this->isPlatformAdmin()) {
+            return route('platform.tenants.index', absolute: false);
+        }
+
         return $this->isAdmin()
             ? route('dashboard', absolute: false)
             : route('cashier.index', absolute: false);
