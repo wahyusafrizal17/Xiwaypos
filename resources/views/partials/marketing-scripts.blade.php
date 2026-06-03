@@ -175,4 +175,50 @@ const revealObserver = new IntersectionObserver(entries => {
 }, { threshold: 0.1 });
 
 document.querySelectorAll('.marketing-reveal').forEach(el => revealObserver.observe(el));
+
+(function initDemoModal() {
+    const modal = document.getElementById('demoModal');
+    const playBtn = document.getElementById('demoPlayBtn');
+    if (! modal) {
+        return;
+    }
+
+    function openModal() {
+        modal.hidden = false;
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        modal.hidden = true;
+        document.body.style.overflow = '';
+    }
+
+    playBtn?.addEventListener('click', openModal);
+    modal.querySelectorAll('[data-demo-close]').forEach(el => {
+        el.addEventListener('click', closeModal);
+    });
+
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && ! modal.hidden) {
+            closeModal();
+        }
+    });
+})();
+
+(function initStickyCta() {
+    const sticky = document.getElementById('stickyCta');
+    const hero = document.getElementById('heroSection');
+    if (! sticky || ! hero) {
+        return;
+    }
+
+    const observer = new IntersectionObserver(entries => {
+        const pastHero = ! entries[0]?.isIntersecting;
+        sticky.classList.toggle('is-visible', pastHero);
+        sticky.setAttribute('aria-hidden', pastHero ? 'false' : 'true');
+        document.body.classList.toggle('has-sticky-cta', pastHero);
+    }, { threshold: 0, rootMargin: '-80px 0px 0px 0px' });
+
+    observer.observe(hero);
+})();
 </script>

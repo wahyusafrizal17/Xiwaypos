@@ -20,11 +20,21 @@
     }
 
     $testimonials = [
-        ['text' => 'Setup-nya cepat banget. Dalam 10 menit sudah bisa terima pesanan, dan laporan hariannya membantu saya pantau omzet setiap malam.', 'name' => 'Rina Kusuma', 'role' => 'Pemilik · Kopi Sore Cafe, Bandung', 'avatar' => 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80'],
-        ['text' => 'Fitur tagihan sementara sangat membantu restoran kami. Kasir bisa update pesanan tanpa salah hitung.', 'name' => 'Budi Santoso', 'role' => 'Manager · Warung Bahari, Surabaya', 'avatar' => 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80'],
-        ['text' => 'Saya pakai dari HP saja, tanpa mesin kasir besar. Cocok buat food truck. Pembayaran QRIS lancar, struk langsung keluar.', 'name' => 'Sari Dewi', 'role' => 'Pemilik · Sari Food Truck, Jakarta', 'avatar' => 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80'],
-        ['text' => 'Harganya masuk akal untuk fitur yang lengkap. Tim support juga responsif saat saya baru mulai.', 'name' => 'Dimas Pratama', 'role' => 'Pemilik · Kedai Kita, Yogyakarta', 'avatar' => 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80'],
-        ['text' => 'Admin bisa pantau dari rumah, kasir kerja di toko. Semua data sinkron otomatis tanpa repot.', 'name' => 'Maya Hendra', 'role' => 'Pemilik · Boba Queen, Medan', 'avatar' => 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&q=80'],
+        ['text' => 'Dari daftar sampai bisa terima pesanan kurang dari 15 menit. Kasir di HP sudah cukup untuk operasional harian kami.', 'name' => 'Wahyu Safrizal', 'role' => 'Pemilik · Xiway Stack', 'avatar' => $wahyuPhoto, 'verified' => true],
+        ['text' => 'Layar kasirnya simpel, staff cepat paham. Laporan harian langsung keluar jadi saya bisa cek omzet tanpa hitung manual.', 'name' => 'Admin Xiway', 'role' => 'Pemilik · Xiway Demo Cafe', 'avatar' => 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80', 'verified' => true],
+        ['text' => 'Tagihan sementara dan split payment QRIS/tunai sangat membantu saat jam ramai. Setup menu juga tidak ribet.', 'name' => 'Rina Kusuma', 'role' => 'Pemilik · Kopi Sore Cafe, Bandung', 'avatar' => 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80', 'verified' => false],
+    ];
+
+    $whyXiway = [
+        ['title' => 'Setup ±10 menit', 'desc' => 'Daftar, isi menu, langsung bisa transaksi. Tanpa instalasi rumit.'],
+        ['title' => 'Cocok di HP', 'desc' => 'Kasir jalan di browser HP/tablet. Ideal untuk cafe & restoran kecil.'],
+        ['title' => 'Trial 14 hari penuh', 'desc' => 'Coba semua fitur dulu. Tanpa kartu kredit, tanpa komitmen.'],
+    ];
+
+    $demoSteps = [
+        ['num' => '01', 'title' => 'Pilih menu & pesanan', 'desc' => 'Kasir cepat untuk dine-in dan takeaway.'],
+        ['num' => '02', 'title' => 'Bayar QRIS / tunai', 'desc' => 'Split payment dan struk langsung siap.'],
+        ['num' => '03', 'title' => 'Pantau omzet harian', 'desc' => 'Laporan penjualan real-time untuk owner.'],
     ];
 
     $faqs = [
@@ -35,7 +45,7 @@
         ['q' => 'Apakah data bisnis saya aman?', 'a' => 'Ya. Setiap bisnis punya data terpisah. Data toko Anda tidak tercampur dengan bisnis lain.'],
     ];
 
-    $logoBrands = ['Kopi Kenangan', 'Kedai Kita', 'Warung Nusantara', 'Boba House', 'Restoran Bahari', 'Dapur Ibu', 'Cafe 88'];
+    $logoBrands = ['Kedai Kopi', 'Restoran Keluarga', 'Coffee Shop', 'Boba & Minuman', 'Warung Makan', 'Food Truck'];
 
     $marketingAsset = function (string $path): string {
         $url = asset($path);
@@ -51,22 +61,17 @@
     $heroSlides = [
         [
             'bg' => $marketingAsset('images/marketing/hero-slide-hardware.png'),
-            'title' => 'Sistem kasir praktis',
-            'highlight' => 'Cafe & Restoran',
-            'desc' => 'Catat penjualan, kelola menu, dan pantau omzet dari satu tempat. Daftar dan mulai jualan dalam hitungan menit.',
-            'cta_secondary_label' => 'Lihat Fitur',
-            'cta_secondary_url' => '#fitur',
-            'cta_secondary_external' => false,
+            'badge' => 'Coba gratis 14 hari · Tanpa kartu kredit',
+            'title' => 'Kasir cafe & restoran',
+            'highlight' => 'Setup 10 menit, langsung jualan',
+            'desc' => 'Catat pesanan, terima QRIS/tunai, dan pantau omzet harian dari satu aplikasi — bisa dipakai di HP, tablet, atau laptop.',
         ],
         [
             'bg' => $marketingAsset('images/marketing/hero-slide-pos.png'),
-            'badge' => 'Bisa dipakai di HP, tablet, atau laptop',
-            'title' => 'Satu aplikasi untuk',
-            'highlight' => 'Kelola Usaha F&B Anda',
-            'desc' => 'Terima pembayaran QRIS, tunai, atau transfer. Kelola pesanan meja dan laporan harian — langsung siap dipakai di outlet Anda.',
-            'cta_secondary_label' => 'Chat WhatsApp',
-            'cta_secondary_url' => $waUrl,
-            'cta_secondary_external' => true,
+            'badge' => 'Untuk UMKM makan & minum',
+            'title' => 'Aplikasi POS kasir',
+            'highlight' => 'Praktis di HP Anda',
+            'desc' => 'Kelola menu, tagihan sementara, multi pengguna admin & kasir. Mulai trial sekarang, upgrade paket kapan saja.',
         ],
     ];
 @endphp
@@ -93,14 +98,15 @@
     <div class="nav-menu" id="navMenu">
         <ul class="nav-links">
             <li><a href="#fitur">Fitur</a></li>
-            <li><a href="#cara-kerja">Demo</a></li>
+            <li><a href="#demo-preview">Lihat Demo</a></li>
+            <li><a href="#kenapa-xiway">Kenapa Xiway</a></li>
             <li><a href="#harga">Harga</a></li>
             <li><a href="#faq">FAQ</a></li>
             <li><a href="#hubungi-kami">Hubungi Kami</a></li>
         </ul>
         <div class="nav-cta">
             <a href="{{ $loginUrl }}" class="btn-ghost">Masuk</a>
-            <a href="{{ $registerUrl }}" class="btn-red">Coba Gratis →</a>
+            <a href="{{ $registerUrl }}" class="btn-red">Coba Gratis 14 Hari →</a>
         </div>
     </div>
 </nav>
@@ -122,26 +128,28 @@
                                 <p class="hero-desc">{{ $slide['desc'] }}</p>
                                 <div class="hero-btns">
                                     <a href="{{ $registerUrl }}" class="btn-red-lg">Coba Gratis 14 Hari →</a>
-                                    <a
-                                        href="{{ $slide['cta_secondary_url'] }}"
-                                        @if($slide['cta_secondary_external']) target="_blank" rel="noopener" @endif
-                                        class="btn-outline-lg btn-outline-light"
-                                    >{{ $slide['cta_secondary_label'] }}</a>
+                                    <a href="#demo-preview" class="btn-outline-lg btn-outline-light">Lihat Demo 1 Menit</a>
                                 </div>
+                                <ul class="hero-trust-pills">
+                                    <li>Gratis 14 hari</li>
+                                    <li>Tanpa kartu kredit</li>
+                                    <li>Bisa di HP</li>
+                                    <li>Data toko terpisah</li>
+                                </ul>
                                 <div class="hero-stats">
                                     <div>
-                                        <div class="hero-stat-num">2.000<span>+</span></div>
-                                        <div class="hero-stat-label">Bisnis aktif</div>
+                                        <div class="hero-stat-num">14<span> hari</span></div>
+                                        <div class="hero-stat-label">Trial penuh</div>
                                     </div>
                                     <div class="hero-stat-sep"></div>
                                     <div>
-                                        <div class="hero-stat-num">99<span>%</span></div>
-                                        <div class="hero-stat-label">Layanan stabil</div>
+                                        <div class="hero-stat-num">±10<span> mnt</span></div>
+                                        <div class="hero-stat-label">Setup toko</div>
                                     </div>
                                     <div class="hero-stat-sep"></div>
                                     <div>
-                                        <div class="hero-stat-num">4.9<span>★</span></div>
-                                        <div class="hero-stat-label">Rating pengguna</div>
+                                        <div class="hero-stat-num">F&B<span></span></div>
+                                        <div class="hero-stat-label">Fokus usaha makan</div>
                                     </div>
                                 </div>
                             </div>
@@ -169,7 +177,7 @@
 </section>
 
 <div class="logo-strip">
-    <span class="logo-strip-label">Dipercaya oleh</span>
+    <span class="logo-strip-label">Cocok untuk</span>
     <div style="overflow:hidden;flex:1">
         <div class="logo-strip-track">
             @foreach (array_merge($logoBrands, $logoBrands) as $brand)
@@ -179,21 +187,67 @@
     </div>
 </div>
 
-<section class="how-section" id="cara-kerja">
-    <div class="how-inner">
-        <div class="how-img-wrap">
-            <img src="{{ $marketingAsset('images/demo.png') }}" alt="Demo Xiway POS" loading="lazy">
-            <div class="how-img-overlay"></div>
-            <div class="how-step-badge">Demo Gratis</div>
+<section class="why-section" id="kenapa-xiway">
+    <div class="why-inner">
+        <div class="why-head">
+            <div class="section-label">Kenapa Xiway</div>
+            <h2 class="section-title">Mulai jualan hari ini, tanpa ribet</h2>
+            <p class="section-sub">Fokus ke kebutuhan cafe, coffee shop, dan restoran kecil–menengah.</p>
         </div>
-        <div class="how-content">
-            <div class="section-label">Demo</div>
-            <h2 class="section-title">Butuh demo dulu?<br>Kami siap kapan saja</h2>
-            <p class="how-demo-desc">Mau lihat langsung fitur kasir, laporan, dan cara setup toko? Tim kami siap bantu — online atau datang ke tempat Anda.</p>
-            <a href="{{ $waUrl }}" target="_blank" rel="noopener" class="btn-red-lg">Jadwalkan Demo →</a>
+        <div class="why-grid">
+            @foreach ($whyXiway as $item)
+                <div class="why-card marketing-reveal">
+                    <h3>{{ $item['title'] }}</h3>
+                    <p>{{ $item['desc'] }}</p>
+                </div>
+            @endforeach
         </div>
     </div>
 </section>
+
+<section class="demo-section" id="demo-preview">
+    <div class="demo-inner">
+        <div class="demo-content">
+            <div class="section-label">Lihat cara kerjanya</div>
+            <h2 class="section-title">Bayangkan kasir Anda<br>seperti ini</h2>
+            <p class="demo-desc">Tiga langkah singkat dari pesanan sampai laporan. Tidak perlu tebak-tebakan fitur.</p>
+            <div class="demo-steps">
+                @foreach ($demoSteps as $step)
+                    <div class="demo-step">
+                        <span class="demo-step-num">{{ $step['num'] }}</span>
+                        <div>
+                            <strong>{{ $step['title'] }}</strong>
+                            <p>{{ $step['desc'] }}</p>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+            <div class="demo-cta-row">
+                <a href="{{ $registerUrl }}" class="btn-red-lg">Coba Gratis 14 Hari →</a>
+                <a href="{{ $waUrl }}" target="_blank" rel="noopener" class="btn-outline-lg">Butuh bantuan? Chat WhatsApp</a>
+            </div>
+        </div>
+        <div class="demo-visual">
+            <div class="demo-screen-wrap">
+                <img src="{{ $marketingAsset('images/demo.png') }}" alt="Tampilan kasir Xiway POS" loading="lazy">
+                <button type="button" class="demo-play-btn" id="demoPlayBtn" aria-label="Perbesar demo">
+                    <span class="demo-play-icon">▶</span>
+                    <span>Lihat tampilan kasir</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="demo-modal" id="demoModal" hidden>
+    <div class="demo-modal-backdrop" data-demo-close></div>
+    <div class="demo-modal-panel" role="dialog" aria-modal="true" aria-label="Preview Xiway POS">
+        <button type="button" class="demo-modal-close" data-demo-close aria-label="Tutup">&times;</button>
+        <img src="{{ $marketingAsset('images/demo.png') }}" alt="Preview layar kasir Xiway POS">
+        <p class="demo-modal-caption">Ini tampilan nyata modul kasir Xiway POS. Daftar trial untuk mencoba dengan data toko Anda.</p>
+        <a href="{{ $registerUrl }}" class="btn-red-lg">Mulai Trial Gratis</a>
+    </div>
+</div>
 
 <section class="features" id="fitur">
     <div class="features-head">
@@ -223,7 +277,8 @@
 <section class="testi-section">
     <div class="testi-head">
         <div class="section-label">Testimoni</div>
-        <h2 class="section-title">Apa kata mereka?</h2>
+        <h2 class="section-title">Pengalaman pengguna nyata</h2>
+        <p class="section-sub">Beberapa ulasan dari tenant yang memakai Xiway POS (bukan angka marketing palsu).</p>
     </div>
     <div class="testi-track-wrap">
         <div class="testi-track" id="testiTrack">
@@ -234,7 +289,12 @@
                     <div class="testi-author">
                         <img class="testi-avatar" src="{{ $testi['avatar'] }}" alt="{{ $testi['name'] }}" loading="lazy">
                         <div>
-                            <div class="testi-name">{{ $testi['name'] }}</div>
+                            <div class="testi-name">
+                                {{ $testi['name'] }}
+                                @if (! empty($testi['verified']))
+                                    <span class="testi-verified">Pengguna Xiway</span>
+                                @endif
+                            </div>
                             <div class="testi-role">{{ $testi['role'] }}</div>
                         </div>
                     </div>
@@ -245,6 +305,16 @@
     <div class="testi-nav">
         <button type="button" class="slider-btn" id="testiPrev" aria-label="Testimoni sebelumnya">&#8592;</button>
         <button type="button" class="slider-btn" id="testiNext" aria-label="Testimoni berikutnya">&#8594;</button>
+    </div>
+</section>
+
+<section class="trial-banner">
+    <div class="trial-banner-inner marketing-reveal">
+        <div>
+            <strong>Coba dulu 14 hari — gratis</strong>
+            <p>Isi menu, buat transaksi, undang kasir. Upgrade paket hanya jika sudah cocok.</p>
+        </div>
+        <a href="{{ $registerUrl }}" class="btn-red-lg">Mulai Trial Sekarang →</a>
     </div>
 </section>
 
@@ -326,11 +396,12 @@
             <h2>Pertanyaan?<br><span>Kami siap bantu</span></h2>
             <p>Hubungi kami kapan saja — mulai dari cara daftar, fitur kasir, sampai langganan setelah trial.</p>
             <div class="support-actions">
-                <a href="{{ $waUrl }}" target="_blank" rel="noopener" class="support-wa-btn">
+                <a href="{{ $registerUrl }}" class="btn-red-lg">Coba Gratis 14 Hari →</a>
+                <a href="{{ $waUrl }}" target="_blank" rel="noopener" class="support-wa-btn support-wa-btn--secondary">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.75.75 0 00.914.914l4.458-1.495A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.714 9.714 0 01-4.915-1.332l-.352-.209-2.64.886.886-2.64-.209-.352A9.714 9.714 0 012.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
-                    Tanya lewat WhatsApp
+                    Ada pertanyaan? Chat WhatsApp
                 </a>
-                <span class="support-note">Respon cepat · Senin–Sabtu</span>
+                <span class="support-note">WhatsApp untuk bantuan · Trial lewat tombol di atas</span>
             </div>
         </div>
     </div>
@@ -403,7 +474,7 @@
                 <h4 class="footer-heading">Perusahaan</h4>
                 <ul class="footer-menu">
                     <li><a href="{{ $waUrl }}" target="_blank" rel="noopener">Hubungi Kami</a></li>
-                    <li><a href="#cara-kerja">Demo</a></li>
+                    <li><a href="#demo-preview">Lihat Demo</a></li>
                     <li><a href="{{ $registerUrl }}">Daftar Gratis</a></li>
                     <li><a href="{{ $loginUrl }}">Masuk</a></li>
                 </ul>
@@ -438,6 +509,11 @@
         Hubungi kami
     </a>
 </footer>
+
+<div class="sticky-cta" id="stickyCta" aria-hidden="true">
+    <a href="{{ $registerUrl }}" class="sticky-cta-primary">Coba Gratis 14 Hari</a>
+    <a href="#demo-preview" class="sticky-cta-secondary">Demo</a>
+</div>
 
 @include('partials.marketing-scripts')
 

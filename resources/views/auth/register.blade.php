@@ -1,6 +1,6 @@
 @extends('layouts.login')
 
-@section('title', 'Daftar')
+@section('title', 'Daftar — Coba Gratis 14 Hari')
 @section('card-class', 'login-card--register')
 
 @section('content')
@@ -8,6 +8,10 @@
         <x-xiway-logo class="login-logo-img" />
         <span class="login-logo-text">xiway<em>pos</em></span>
     </div>
+
+    <p class="register-lead">Buat akun trial gratis. Langsung bisa kelola menu dan transaksi.</p>
+
+    @include('partials.marketing-register-trust')
 
     <form method="POST" action="{{ route('register') }}">
         @csrf
@@ -60,7 +64,7 @@
 
         <div class="login-actions">
             <a href="{{ route('login') }}">Sudah punya akun?</a>
-            <button type="submit" class="login-btn login-btn--auto">Mulai Trial Gratis</button>
+            <button type="submit" class="login-btn login-btn--auto">Coba Gratis 14 Hari</button>
         </div>
     </form>
 @endsection

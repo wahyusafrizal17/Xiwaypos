@@ -169,7 +169,50 @@
                 align-items: center;
                 justify-content: center;
                 gap: 8px;
-                margin-bottom: 1.75rem;
+                margin-bottom: 1rem;
+            }
+
+            .register-lead {
+                text-align: center;
+                font-size: 0.9rem;
+                color: #4b5563;
+                line-height: 1.5;
+                margin: 0 0 1rem;
+            }
+
+            .register-trust {
+                margin-bottom: 1.25rem;
+                padding: 14px 16px;
+                border-radius: 12px;
+                background: #fafafa;
+                border: 1px solid #f0f0f0;
+            }
+            .register-trust-title {
+                margin: 0 0 10px;
+                font-size: 0.8rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.06em;
+                color: var(--login-red);
+                text-align: center;
+            }
+            .register-trust-list {
+                margin: 0;
+                padding: 0;
+                list-style: none;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                justify-content: center;
+            }
+            .register-trust-list li {
+                font-size: 0.75rem;
+                font-weight: 500;
+                color: #374151;
+                background: #fff;
+                border: 1px solid #e5e7eb;
+                padding: 6px 10px;
+                border-radius: 999px;
             }
             .login-logo-row .login-logo-img {
                 height: 36px;
