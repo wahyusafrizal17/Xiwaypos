@@ -11,7 +11,7 @@
 @section('page_header')
     <div>
         <h1>Selamat datang, {{ auth()->user()->name }} 👋</h1>
-        <p>Ringkasan tenant, langganan, kunjungan website, dan verifikasi pembayaran.</p>
+        <p>Ringkasan tenant, langganan, kunjungan website, funnel konversi, dan verifikasi pembayaran.</p>
     </div>
 @endsection
 
@@ -98,6 +98,52 @@
                 </div>
             @endif
         </div>
+    </div>
+
+    <div class="vx-card vx-card-pad mt-6">
+        <div class="vx-card-head mb-4">
+            <div>
+                <h2>Funnel konversi</h2>
+                <p>{{ $funnelSummary['days'] }} hari terakhir — dari kunjungan landing sampai transaksi pertama</p>
+            </div>
+        </div>
+        @if ($funnelSummary['has_data'])
+            @php
+                $maxFunnel = max(1, collect($funnelSummary['steps'])->max('count'));
+            @endphp
+            <div class="space-y-4">
+                @foreach ($funnelSummary['steps'] as $index => $step)
+                    @php
+                        $width = max(8, (int) round(($step['count'] / $maxFunnel) * 100));
+                    @endphp
+                    <div>
+                        <div class="mb-2 flex flex-wrap items-center justify-between gap-2 text-sm">
+                            <div class="flex items-center gap-2">
+                                <span class="flex h-6 w-6 items-center justify-center rounded-full bg-[var(--vx-primary-soft)] text-xs font-bold text-[var(--vx-primary-text)]">{{ $index + 1 }}</span>
+                                <span class="font-semibold text-[var(--vx-text)]">{{ $step['label'] }}</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-[var(--vx-text-soft)]">
+                                <span class="font-bold text-[var(--vx-text)]">{{ number_format($step['count'], 0, ',', '.') }}</span>
+                                @if ($step['rate_from_previous'] !== null)
+                                    <span class="vx-badge vx-badge-slate">{{ $step['rate_from_previous'] }}% dari langkah sebelumnya</span>
+                                @endif
+                                @if ($index > 0 && $step['rate_from_landing'] !== null)
+                                    <span class="vx-badge vx-badge-primary">{{ $step['rate_from_landing'] }}% dari landing</span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="h-3 overflow-hidden rounded-full bg-[var(--vx-border-soft)]">
+                            <div class="h-full rounded-full bg-[var(--vx-primary)] transition-all" style="width: {{ $width }}%"></div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+            <p class="mt-4 text-xs text-[var(--vx-text-mute)]">
+                Data funnel mulai tercatat setelah fitur ini aktif. Kunjungan landing = pengunjung unik homepage; daftar berhasil = tenant trial baru; transaksi pertama = tenant yang sudah punya penjualan lunas pertama.
+            </p>
+        @else
+            <p class="text-sm text-[var(--vx-text-mute)]">Belum ada data funnel. Kunjungi landing dan halaman daftar untuk mulai mengumpulkan data.</p>
+        @endif
     </div>
 
     <div class="mt-6 grid gap-6 lg:grid-cols-2">

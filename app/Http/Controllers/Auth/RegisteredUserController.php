@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Services\MarketingFunnelTracker;
 use App\Services\TenantProvisioner;
 use App\Support\StaffPasswords;
 use App\Support\TenantContext;
@@ -23,7 +24,7 @@ class RegisteredUserController extends Controller
     /**
      * @throws ValidationException
      */
-    public function store(Request $request, TenantProvisioner $provisioner): RedirectResponse
+    public function store(Request $request, TenantProvisioner $provisioner, MarketingFunnelTracker $funnelTracker): RedirectResponse
     {
         $data = $request->validate([
             'tenant_name' => ['required', 'string', 'max:255'],
@@ -48,6 +49,8 @@ class RegisteredUserController extends Controller
         $request->session()->put('registration_credentials', $result['credentials']);
         StaffPasswords::importFromSession($result['tenant'], $result['credentials']);
         TenantContext::set($result['tenant']);
+
+        $funnelTracker->recordRegisterSubmit($request, $result['tenant']);
 
         return redirect()
             ->route('dashboard')

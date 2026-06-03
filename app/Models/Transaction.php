@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Concerns\BelongsToTenant;
+use App\Services\MarketingFunnelTracker;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -42,6 +43,13 @@ class Transaction extends Model
     protected $attributes = [
         'status' => self::STATUS_PAID,
     ];
+
+    protected static function booted(): void
+    {
+        static::created(function (Transaction $transaction): void {
+            app(MarketingFunnelTracker::class)->recordFirstSaleIfFirst($transaction);
+        });
+    }
 
     public function isOpen(): bool
     {

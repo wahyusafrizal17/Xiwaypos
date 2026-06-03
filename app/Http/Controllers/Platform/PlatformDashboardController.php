@@ -6,13 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Models\Subscription;
 use App\Models\SubscriptionPaymentRequest;
 use App\Models\Tenant;
+use App\Services\MarketingFunnelAnalytics;
 use App\Services\SiteVisitAnalytics;
 use Illuminate\View\View;
 
 class PlatformDashboardController extends Controller
 {
     public function __construct(
-        protected SiteVisitAnalytics $siteVisitAnalytics
+        protected SiteVisitAnalytics $siteVisitAnalytics,
+        protected MarketingFunnelAnalytics $funnelAnalytics
     ) {}
 
     public function index(): View
@@ -45,6 +47,7 @@ class PlatformDashboardController extends Controller
             ->get();
 
         $trafficChart = $this->siteVisitAnalytics->chartData(7);
+        $funnelSummary = $this->funnelAnalytics->summary(7);
 
         return view('platform.dashboard', compact(
             'totalTenants',
@@ -54,6 +57,7 @@ class PlatformDashboardController extends Controller
             'recentTenants',
             'recentPaymentRequests',
             'trafficChart',
+            'funnelSummary',
         ));
     }
 }
